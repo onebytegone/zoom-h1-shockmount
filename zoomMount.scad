@@ -1,3 +1,5 @@
+include <CornerCutout.scad>
+
 gapWidth = 45;
 gapHalfHeight = 20;
 
@@ -42,7 +44,13 @@ module wall() {
 }
 
 module arm() {
-	translate([-bandAttachArmThickness, 0]) cube([bandAttachArmThickness, armHeight, bandAttachArmWidth]);
-	translate([-1,armHeight-bandAttachClipThickness]) cube([bandAttachClipLength+1, bandAttachClipThickness, bandAttachArmWidth]);
-	translate([-1,armHeight-bandAttachClipThickness*2-bandAttachGap]) cube([bandAttachClipLength+1, bandAttachClipThickness, bandAttachArmWidth]);
+	difference() {
+		union() {
+			translate([-bandAttachArmThickness, 0]) cube([bandAttachArmThickness, armHeight, bandAttachArmWidth]);
+			translate([-1,armHeight-bandAttachClipThickness]) cube([bandAttachClipLength+1, bandAttachClipThickness, bandAttachArmWidth]);
+			translate([-1,armHeight-bandAttachClipThickness*2-bandAttachGap]) cube([bandAttachClipLength+1, bandAttachClipThickness, bandAttachArmWidth]);
+		}
+	
+		translate([-bandAttachArmThickness, armHeight]) CornerCutout(3, bandAttachArmWidth, cornerRadius);
+	}
 }
