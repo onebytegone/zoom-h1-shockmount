@@ -11,7 +11,10 @@ bandAttachArmGap = 25;
 baseThickness = 4;
 armSupportHeight = gapHalfHeight-bandAttachGap/2-bandAttachClipThickness;
 
+cornerRadius = 3;
+
 supportThickness = 0.2;
+
 
 mountHoleSize = 6;
 mountHoleDepth = 6;
@@ -19,6 +22,8 @@ mountHoleDepth = 6;
 totalLength = bandAttachArmWidth*2+bandAttachArmGap;
 totalWidth = gapWidth+bandAttachArmThickness;
 armHeight = gapHalfHeight+bandAttachGap/2+bandAttachClipThickness;
+
+$fn = 40;
 
 
 translate([-totalWidth/2, -baseThickness]) cube([totalWidth,baseThickness,totalLength]);
@@ -28,7 +33,12 @@ translate([-totalWidth/2, 0]) mirror([1,0]) wall();
 module wall() {
 	arm();
 	translate([0, 0, totalLength-bandAttachArmWidth]) arm();
-	translate([-bandAttachArmThickness, 0]) cube([bandAttachArmThickness, armSupportHeight, totalLength]);
+	difference() {
+		translate([-bandAttachArmThickness, 0]) cube([bandAttachArmThickness, armSupportHeight+cornerRadius, totalLength]);
+		translate([1,armSupportHeight+cornerRadius,bandAttachArmWidth+cornerRadius]) rotate([0,-90]) cylinder(bandAttachArmThickness+2, cornerRadius, cornerRadius);
+		translate([1,armSupportHeight+cornerRadius,totalLength-bandAttachArmWidth-cornerRadius]) rotate([0,-90]) cylinder(bandAttachArmThickness+2, cornerRadius, cornerRadius);
+		translate([-bandAttachArmThickness-1,armSupportHeight,bandAttachArmWidth+cornerRadius]) cube([bandAttachArmThickness+2, cornerRadius*2, totalLength-bandAttachArmWidth*2-cornerRadius*2]);
+	}
 }
 
 module arm() {
