@@ -84,8 +84,8 @@ module arm() {
 }
 
 
-module RoundedTop(outsideLength = 10, width = 2, radius = 3, extra = 1) {
+module RoundedTop(outsideLength = 10, width = 2, radius = 3, extra = 1, manifoldShift=0.01) {
 	translate([-extra,outsideLength/2-radius, radius]) rotate([0,90]) cylinder(width+extra*2, cornerRadius, cornerRadius);
 	translate([-extra,-outsideLength/2+radius, radius]) rotate([0,90]) cylinder(width+extra*2, cornerRadius, cornerRadius);
-	translate([-extra,-outsideLength/2+cornerRadius]) cube([width+extra*2, outsideLength-cornerRadius*2, cornerRadius*2]);
+	translate([-extra-manifoldShift,-outsideLength/2+cornerRadius-manifoldShift]) cube([width+extra*2+manifoldShift*2, outsideLength-cornerRadius*2+manifoldShift*2, cornerRadius*2]);
 }
