@@ -17,10 +17,15 @@ cornerRadius = 3;
 
 supportThickness = 0.2;
 
+nutSize = 12.8;
+nutThickness = 6;
+nutAttachExtra = 4;
+nutBackingThickness = 1;
+nutAttachCorner = 1;
 
-mountHoleSize = 6;
-mountHoleDepth = 6;
-
+nutAttachWidth = nutSize+nutAttachExtra*2;
+nutAttachThickness = nutThickness+nutBackingThickness;
+nutAttachDrop = nutAttachThickness-baseThickness;
 totalLength = bandAttachArmWidth*2+bandAttachArmGap;
 totalWidth = gapWidth+bandAttachArmThickness*2;
 armHeight = gapHalfHeight+bandAttachGap/2+bandAttachClipThickness;
@@ -42,8 +47,17 @@ difference() {
 
 module base() {
 	difference() {
-		translate([-totalWidth/2, -baseThickness]) cube([totalWidth,baseThickness+cornerRadius,totalLength]);
+		union() {
+			translate([-totalWidth/2, -baseThickness]) cube([totalWidth,baseThickness+cornerRadius,totalLength]);
+			translate([-nutAttachWidth/2, -nutAttachThickness]) cube([nutAttachWidth,nutAttachDrop,totalLength]);
+		}
 		rotate([0,-90,-90]) RoundedTop(gapWidth, totalLength, cornerRadius);
+
+		translate([-nutAttachWidth/2, -nutAttachThickness]) CornerCutout(0, totalLength, nutAttachCorner);
+		translate([nutAttachWidth/2, -nutAttachThickness]) CornerCutout(1, totalLength, nutAttachCorner);
+
+
+		translate([0,-nutBackingThickness,totalLength/2]) rotate([90,0]) cylinder(nutThickness+1, nutSize/2, nutSize/2, $fn = 6); 
 	}
 }
 
