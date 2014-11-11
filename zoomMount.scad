@@ -1,16 +1,16 @@
 include <CornerCutout.scad>
 
-gapWidth = 45;
-gapHalfHeight = 20;
+gapWidth = 46;
+gapHalfHeight = 16;
 
 bandAttachGap = 4;
 bandAttachClipLength = 6;
-bandAttachClipThickness = 4;
-bandAttachArmThickness = 4;
-bandAttachArmWidth = 5;
-bandAttachArmGap = 25;
+bandAttachClipThickness = 4.5;
+bandAttachArmThickness = 4.5;
+bandAttachArmWidth = 8;
+bandAttachArmGap = 17;
 
-baseThickness = 4;
+baseThickness = 4.5;
 armSupportHeight = gapHalfHeight-bandAttachGap/2-bandAttachClipThickness;
 
 cornerRadius = 3;
